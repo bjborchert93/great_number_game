@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">  
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container rounded w-50 mx-auto mt-5 p-3 bg-dark text-light text-center">
+        <h1 class="mb-5">Welcome to the Great Number Game!</h1>
+        <h5 class="mb-4 fst-italic">I am thinking of a number between 1 and 100.</h5>
+        <h5 class="mb-4 fst-italic">Take a guess!</h5>
+        <div style="display: {{ session['fdbk_disp_prop'] }}">
+            <div class="feedback" style="background-color: {{ session['color'] }}">
+                <form action="/destroy_session">
+                    <h2>{{ session['feedback'] }}</h2>
+                    <button class="btn btn-primary mx-auto" type="submit"  style="display: {{ session['replay_disp_prop'] }}">Play Again!</button>
+                </form>
+            </div>
+        </div>
+        <div style="display: {{ session['guess_disp_prop'] }}">
+            <form class="input-group mb-3 mt-3 mx-auto" style="width: 50%" action="/guess_handler" method="POST">
+                <input type="number" class="form-control mx-auto" placeholder="guess..." name="guess">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+            <p>Attempts: {{ session['attempts'] }}</p>
+            <a href="/destroy_session">
+                <button class="btn btn-danger" type="submit">Start Over</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
